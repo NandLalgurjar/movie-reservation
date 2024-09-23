@@ -20,10 +20,10 @@ const StarRating = ({ rating }) => {
     return (
         <ul className="list-inline mb-0">
             {stars}
-            <li className="list-inline-item ms-2 h6 fw-light mb-0">{rating / 2}/10</li>
+            <li className="list-inline-item ms-2 h6 fw-light mb-0">{rating}/10</li>
         </ul>
     );
 };
 
-  export default StarRating;
+export default StarRating;
 

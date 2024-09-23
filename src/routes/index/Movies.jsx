@@ -126,18 +126,21 @@ const Header = () => {
 
                             {movieList?.data?.length > 0 ? movieList?.data?.map((item, index) => {
                                 console.log(item.rating / 2, '------------????')
+                                let url = `/movisDetails?id=${item._id}`
                                 return <div className="col-sm-6 col-lg-4 col-xl-3">
                                     <div className="card shadow h-100">
-                                        <img src={item.posterImage.replace("localhost", "192.168.0.29")} className="card-img-top" alt="course image" />
+                                        <a href={url}>
+                                            <img src={item.posterImage.replace("localhost", "192.168.0.29")} className="card-img-top" alt="course image" />
+                                        </a>
 
                                         <div className="card-body pb-0">
                                             <div className="d-flex justify-content-between mb-2">
-                                                <a href="#" className="badge bg-purple bg-opacity-10 text-purple">{item?.generes?.map(item => `${item} `)}</a>
+                                                <a href={url} className="badge bg-purple bg-opacity-10 text-purple">{item?.generes?.map(item => `${item} `)}</a>
                                                 <span className="badge bg-purple bg-opacity-10 text-purple">Rel. :{moment(item?.releaseDate).format('YYYY-MM-DD')}</span>
-                                                <a href="#" className="h6 mb-0"><i className="far fa-heart"></i></a>
+                                                <a href={url} className="h6 mb-0"><i className="far fa-heart"></i></a>
                                             </div>
 
-                                            <h5 className="card-title fw-normal"><a href="#">{item?.title}</a></h5>
+                                            <h5 className="card-title fw-normal"><a href={url}>{item?.title}</a></h5>
                                             <p className="mb-2 text-truncate-2">{item?.description}</p>
 
                                             <ul className="list-inline mb-0">
@@ -162,7 +165,6 @@ const Header = () => {
                             }) : ''}
                         </div>
                     </div>
-
 
 
                     <div className="tab-pane fade" id="course-pills-tabs-2" role="tabpanel" aria-labelledby="course-pills-tab-2">
