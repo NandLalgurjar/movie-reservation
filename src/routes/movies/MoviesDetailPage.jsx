@@ -43,13 +43,14 @@ const MoviesDetailPage = (props) => {
         try {
             event.preventDefault();
             let tokan = Tokendata();
-            console.log(moviesId, '---moviesId', tokan)
             if (!tokan) {
                 alert('Please Login First')
                 window.location.href = '/login';  // Redirect to the login page
                 return;
             }
 
+
+            console.log("Checking")
         } catch (err) {
             if (!err.response?.data?.success) {
                 console.log(err?.response?.data?.message, "-----");
@@ -167,7 +168,7 @@ const MoviesDetailPage = (props) => {
 
                                 <div className="col-md-4">
                                     <div className="overflow-hidden">
-                                        {/* <button className="btn btn-primary mt-3">Book Your Slot</button> */}
+                                        {/* <button className="btn btn-primary mt-3"></button> */}
                                     </div>
                                 </div>
 
@@ -179,7 +180,7 @@ const MoviesDetailPage = (props) => {
 
                                 <div className="col-md-4">
                                     <div className="overflow-hidden">
-                                        {/* <button className="btn btn-primary mt-3">Book Your Slot</button> */}
+                                        {/* <button className="btn btn-primary mt-3"></button> */}
                                     </div>
                                 </div>
 
