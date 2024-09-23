@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
@@ -8,9 +8,38 @@ import 'swiper/css/pagination';
 
 // import required modules
 import { Pagination, Autoplay } from 'swiper/modules';
+import { getMoviesApi } from "../../service/categry";
+import moment from "moment";
+import StarRating from "./StarRating";
 
 
 const TradingMovies = () => {
+    const [movieList, setMovieList] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    console.log(movieList, '---movieList111');
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const { data } = await getMoviesApi();
+                setMovieList(data?.data);
+            } catch (err) {
+                console.log(err, "------------api1")
+                if (!err.response?.data?.success) {
+                    console.log(err.response.data.message, "-----");
+                }
+                let errMs = err?.response?.data?.message
+                    ? err.response.data.message
+                    : err.message;
+                setError(errMs);
+                console.log(1111, "------------api1")
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchUsers();
+    }, []);
+
 
     return (
         <section className="pb-5 pt-0 pt-lg-5">
@@ -36,223 +65,53 @@ const TradingMovies = () => {
                         modules={[Pagination, Autoplay]}  // Import Pagination and Autoplay modules
                         className="mySwiper"
                     >
-                        <SwiperSlide>
-                            <div className="card action-trigger-hover border bg-transparent">
-                                {/* <!-- Image --> */}
-                                <img src="assets/images/courses/4by3/15.jpg" className="card-img-top" alt="course image" />
-                                {/* <!-- Card body --> */}
-                                <div className="card-body pb-0">
-                                    {/* <!-- Badge and favorite --> */}
-                                    <div className="d-flex justify-content-between mb-3">
-                                        <span className="hstack gap-2">
-                                            <a href="#" className="badge bg-primary bg-opacity-10 text-primary">Development</a>
-                                            <a href="#" className="badge bg-dark text-white">All level</a>
-                                        </span>
-                                        <a href="#" className="h6 fw-light mb-0"><i className="far fa-bookmark"></i></a>
-                                    </div>
-                                    {/* <!-- Title --> */}
-                                    <h5 className="card-title"><a href="#">Angular – The Complete Guide (2021 Edition)</a></h5>
-                                    {/* <!-- Rating --> */}
-                                    <div className="d-flex justify-content-between mb-2">
-                                        <div className="hstack gap-2">
-                                            <p className="text-warning m-0">4.0<i className="fas fa-star text-warning ms-1"></i></p>
-                                            <span className="small">(3500)</span>
-                                        </div>
-                                        <div className="hstack gap-2">
-                                            <p className="h6 fw-light mb-0 m-0">4500</p>
-                                            <span className="small">(Student)</span>
-                                        </div>
-                                    </div>
-                                    {/* <!-- Time --> */}
-                                    <div className="hstack gap-3">
-                                        <span className="h6 fw-light mb-0"><i className="far fa-clock text-danger me-2"></i>12h 45m</span>
-                                        <span className="h6 fw-light mb-0"><i className="fas fa-table text-orange me-2"></i>65 lectures</span>
-                                    </div>
-                                </div>
-                                {/* <!-- Card footer --> */}
-                                <div className="card-footer pt-0 bg-transparent">
-                                    <hr />
-                                    {/* <!-- Avatar and Price --> */}
-                                    <div className="d-flex justify-content-between align-items-center">
-                                        {/* <!-- Avatar --> */}
-                                        <div className="d-flex align-items-center">
-                                            <div className="avatar avatar-sm">
-                                                <img className="avatar-img rounded-1" src="assets/images/avatar/04.jpg" alt="avatar" />
-                                            </div>
-                                            <p className="mb-0 ms-2"><a href="#" className="h6 fw-light mb-0">Billy Vasquez</a></p>
-                                        </div>
-                                        {/* <!-- Price --> */}
-                                        <div>
-                                            <h4 className="text-success mb-0 item-show">$255</h4>
-                                            <a href="#" className="btn-sm btn-success-soft item-show-hover"><i className="fas fa-shopping-cart me-2"></i>Add to cart</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <div className="card action-trigger-hover border bg-transparent">
-                                {/* <!-- Image --> */}
-                                <img src="assets/images/courses/4by3/15.jpg" className="card-img-top" alt="course image" />
-                                {/* <!-- Card body --> */}
-                                <div className="card-body pb-0">
-                                    {/* <!-- Badge and favorite --> */}
-                                    <div className="d-flex justify-content-between mb-3">
-                                        <span className="hstack gap-2">
-                                            <a href="#" className="badge bg-primary bg-opacity-10 text-primary">Development</a>
-                                            <a href="#" className="badge bg-dark text-white">All level</a>
-                                        </span>
-                                        <a href="#" className="h6 fw-light mb-0"><i className="far fa-bookmark"></i></a>
-                                    </div>
-                                    {/* <!-- Title --> */}
-                                    <h5 className="card-title"><a href="#">Angular – The Complete Guide (2021 Edition)</a></h5>
-                                    {/* <!-- Rating --> */}
-                                    <div className="d-flex justify-content-between mb-2">
-                                        <div className="hstack gap-2">
-                                            <p className="text-warning m-0">4.0<i className="fas fa-star text-warning ms-1"></i></p>
-                                            <span className="small">(3500)</span>
-                                        </div>
-                                        <div className="hstack gap-2">
-                                            <p className="h6 fw-light mb-0 m-0">4500</p>
-                                            <span className="small">(Student)</span>
-                                        </div>
-                                    </div>
-                                    {/* <!-- Time --> */}
-                                    <div className="hstack gap-3">
-                                        <span className="h6 fw-light mb-0"><i className="far fa-clock text-danger me-2"></i>12h 45m</span>
-                                        <span className="h6 fw-light mb-0"><i className="fas fa-table text-orange me-2"></i>65 lectures</span>
-                                    </div>
-                                </div>
-                                {/* <!-- Card footer --> */}
-                                <div className="card-footer pt-0 bg-transparent">
-                                    <hr />
-                                    {/* <!-- Avatar and Price --> */}
-                                    <div className="d-flex justify-content-between align-items-center">
-                                        {/* <!-- Avatar --> */}
-                                        <div className="d-flex align-items-center">
-                                            <div className="avatar avatar-sm">
-                                                <img className="avatar-img rounded-1" src="assets/images/avatar/04.jpg" alt="avatar" />
-                                            </div>
-                                            <p className="mb-0 ms-2"><a href="#" className="h6 fw-light mb-0">Billy Vasquez</a></p>
-                                        </div>
-                                        {/* <!-- Price --> */}
-                                        <div>
-                                            <h4 className="text-success mb-0 item-show">$255</h4>
-                                            <a href="#" className="btn-sm btn-success-soft item-show-hover"><i className="fas fa-shopping-cart me-2"></i>Add to cart</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </SwiperSlide>
 
-                        <SwiperSlide>
-                            <div className="card action-trigger-hover border bg-transparent">
-                                {/* <!-- Image --> */}
-                                <img src="assets/images/courses/4by3/15.jpg" className="card-img-top" alt="course image" />
-                                {/* <!-- Card body --> */}
-                                <div className="card-body pb-0">
-                                    {/* <!-- Badge and favorite --> */}
-                                    <div className="d-flex justify-content-between mb-3">
-                                        <span className="hstack gap-2">
-                                            <a href="#" className="badge bg-primary bg-opacity-10 text-primary">Development</a>
-                                            <a href="#" className="badge bg-dark text-white">All level</a>
-                                        </span>
-                                        <a href="#" className="h6 fw-light mb-0"><i className="far fa-bookmark"></i></a>
-                                    </div>
-                                    {/* <!-- Title --> */}
-                                    <h5 className="card-title"><a href="#">Angular – The Complete Guide (2021 Edition)</a></h5>
-                                    {/* <!-- Rating --> */}
-                                    <div className="d-flex justify-content-between mb-2">
-                                        <div className="hstack gap-2">
-                                            <p className="text-warning m-0">4.0<i className="fas fa-star text-warning ms-1"></i></p>
-                                            <span className="small">(3500)</span>
-                                        </div>
-                                        <div className="hstack gap-2">
-                                            <p className="h6 fw-light mb-0 m-0">4500</p>
-                                            <span className="small">(Student)</span>
-                                        </div>
-                                    </div>
-                                    {/* <!-- Time --> */}
-                                    <div className="hstack gap-3">
-                                        <span className="h6 fw-light mb-0"><i className="far fa-clock text-danger me-2"></i>12h 45m</span>
-                                        <span className="h6 fw-light mb-0"><i className="fas fa-table text-orange me-2"></i>65 lectures</span>
-                                    </div>
-                                </div>
-                                {/* <!-- Card footer --> */}
-                                <div className="card-footer pt-0 bg-transparent">
-                                    <hr />
-                                    {/* <!-- Avatar and Price --> */}
-                                    <div className="d-flex justify-content-between align-items-center">
-                                        {/* <!-- Avatar --> */}
-                                        <div className="d-flex align-items-center">
-                                            <div className="avatar avatar-sm">
-                                                <img className="avatar-img rounded-1" src="assets/images/avatar/04.jpg" alt="avatar" />
-                                            </div>
-                                            <p className="mb-0 ms-2"><a href="#" className="h6 fw-light mb-0">Billy Vasquez</a></p>
-                                        </div>
-                                        {/* <!-- Price --> */}
-                                        <div>
-                                            <h4 className="text-success mb-0 item-show">$255</h4>
-                                            <a href="#" className="btn-sm btn-success-soft item-show-hover"><i className="fas fa-shopping-cart me-2"></i>Add to cart</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </SwiperSlide> <SwiperSlide>
-                            <div className="card action-trigger-hover border bg-transparent">
-                                {/* <!-- Image --> */}
-                                <img src="assets/images/courses/4by3/15.jpg" className="card-img-top" alt="course image" />
-                                {/* <!-- Card body --> */}
-                                <div className="card-body pb-0">
-                                    {/* <!-- Badge and favorite --> */}
-                                    <div className="d-flex justify-content-between mb-3">
-                                        <span className="hstack gap-2">
-                                            <a href="#" className="badge bg-primary bg-opacity-10 text-primary">Development</a>
-                                            <a href="#" className="badge bg-dark text-white">All level</a>
-                                        </span>
-                                        <a href="#" className="h6 fw-light mb-0"><i className="far fa-bookmark"></i></a>
-                                    </div>
-                                    {/* <!-- Title --> */}
-                                    <h5 className="card-title"><a href="#">Angular – The Complete Guide (2021 Edition)</a></h5>
-                                    {/* <!-- Rating --> */}
-                                    <div className="d-flex justify-content-between mb-2">
-                                        <div className="hstack gap-2">
-                                            <p className="text-warning m-0">4.0<i className="fas fa-star text-warning ms-1"></i></p>
-                                            <span className="small">(3500)</span>
-                                        </div>
-                                        <div className="hstack gap-2">
-                                            <p className="h6 fw-light mb-0 m-0">4500</p>
-                                            <span className="small">(Student)</span>
-                                        </div>
-                                    </div>
-                                    {/* <!-- Time --> */}
-                                    <div className="hstack gap-3">
-                                        <span className="h6 fw-light mb-0"><i className="far fa-clock text-danger me-2"></i>12h 45m</span>
-                                        <span className="h6 fw-light mb-0"><i className="fas fa-table text-orange me-2"></i>65 lectures</span>
-                                    </div>
-                                </div>
-                                {/* <!-- Card footer --> */}
-                                <div className="card-footer pt-0 bg-transparent">
-                                    <hr />
-                                    {/* <!-- Avatar and Price --> */}
-                                    <div className="d-flex justify-content-between align-items-center">
-                                        {/* <!-- Avatar --> */}
-                                        <div className="d-flex align-items-center">
-                                            <div className="avatar avatar-sm">
-                                                <img className="avatar-img rounded-1" src="assets/images/avatar/04.jpg" alt="avatar" />
-                                            </div>
-                                            <p className="mb-0 ms-2"><a href="#" className="h6 fw-light mb-0">Billy Vasquez</a></p>
-                                        </div>
-                                        {/* <!-- Price --> */}
-                                        <div>
-                                            <h4 className="text-success mb-0 item-show">$255</h4>
-                                            <a href="#" className="btn-sm btn-success-soft item-show-hover"><i className="fas fa-shopping-cart me-2"></i>Add to cart</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </SwiperSlide>
+                        {movieList?.data?.length > 0 ? movieList.data.map((item) => {
 
+                            return <SwiperSlide>
+                                <div className="card action-trigger-hover border bg-transparent">
+                                    {/* <!-- Image --> */}
+                                    <img src={item.posterImage.replace("localhost", "192.168.0.29")} className="card-img-top" alt="course image" />
+                                    {/* <!-- Card body --> */}
+                                    <div className="card-body pb-0">
+                                        {/* <!-- Badge and favorite --> */}
+                                        <div className="d-flex justify-content-between mb-3">
+                                            <span className="hstack gap-2">
+                                                <a href="#" className="badge bg-primary bg-opacity-10 text-primary">{item?.generes?.map(item => `${item} `)}</a>
+                                                <a href="#" className="badge bg-dark text-white">Rel. :{moment(item?.releaseDate).format('YYYY-MM-DD')}</a>
+                                            </span>
+                                            <a href="#" className="h6 fw-light mb-0"><i className="far fa-bookmark"></i></a>
+                                        </div>
+                                        {/* <!-- Title --> */}
+                                        <h5 className="card-title"><a href="#">{item.title}</a></h5>
+                                        {/* <!-- Rating --> */}
+                                        <div className="d-flex justify-content-between mb-2">
+                                            <div className="hstack gap-2">
+                                                {StarRating(item)}
+                                            </div>
+                                            <div className="hstack gap-2">
+                                                <p className="h6 fw-light mb-0 m-0">4500</p>
+                                                <span className="small">(Student)</span>
+                                            </div>
+                                        </div>
+                                        {/* <!-- Time --> */}
+
+                                        <div className="card-footer pt-0 pb-3">
+                                            <hr />
+                                            <div className="d-flex justify-content-between">
+                                                <span className="h6 fw-light mb-0"><i className="fas fa-language text-danger me-2"></i>language</span>
+                                                <span className="h6 fw-light mb-0">{item.language}</span>
+                                            </div>
+                                            <div className="d-flex justify-content-between">
+                                                <span className="h6 fw-light mb-0"><i className="far fa-clock text-danger me-2"></i>{`${Math.floor(item.duration / 60)}h:${item.duration % 60}m`}</span>
+                                                <a href={item?.trailerUrl}> <span className="h6 fw-light mb-0"><i className="fas fa-table text-orange me-2"></i>Trailer</span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </SwiperSlide>
+                        }) : ''}
                     </Swiper>
                     {/* <!-- Slider END --> */}
                 </div>

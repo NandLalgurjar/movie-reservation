@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { getGenereApi, getMoviesApi } from "../../service/categry";
 import moment from "moment";
+import StarRating from "./StarRating";
 
 const Header = () => {
     const [data, setData] = useState([]);
@@ -10,6 +11,7 @@ const Header = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [active, setActive] = useState('');
+    const rating = [1, 2, 3, 4, 5];
     // console.log(data, "------------api1", active);
 
     useEffect(() => {
@@ -61,6 +63,32 @@ const Header = () => {
     const changeSelecedItem = async (event, userId) => {
         setActive(userId);
     };
+    // const StarRating = ({ rating }) => {
+    //     // Calculate full stars, half stars, and empty stars
+    //     const fullStars = Math.floor(rating / 2); // Full stars (rating/2 because it's out of 10)
+    //     const totalStars = 5; // Total stars to display
+
+    //     // Create an array to hold star icons
+    //     const stars = [];
+
+    //     for (let i = 0; i < totalStars; i++) {
+    //         if (i < fullStars) {
+    //             stars.push(<li key={i} className="list-inline-item me-0 small"><i className="fas fa-star text-warning"></i></li>);
+    //         } else {
+    //             stars.push(<li key={i} className="list-inline-item me-0 small"><i className="far fa-star text-warning"></i></li>);
+    //         }
+    //     }
+
+    //     return (
+    //         <ul className="list-inline mb-0">
+    //             {stars}
+    //             <li className="list-inline-item ms-2 h6 fw-light mb-0">{rating / 2}/10</li>
+    //         </ul>
+    //     );
+    // };
+
+    //   export default StarRating;
+
 
     return (
         <section>
@@ -97,7 +125,7 @@ const Header = () => {
                         <div className="row g-4">
 
                             {movieList?.data?.length > 0 ? movieList?.data?.map((item, index) => {
-
+                                console.log(item.rating / 2, '------------????')
                                 return <div className="col-sm-6 col-lg-4 col-xl-3">
                                     <div className="card shadow h-100">
                                         <img src={item.posterImage.replace("localhost", "192.168.0.29")} className="card-img-top" alt="course image" />
@@ -113,12 +141,7 @@ const Header = () => {
                                             <p className="mb-2 text-truncate-2">{item?.description}</p>
 
                                             <ul className="list-inline mb-0">
-                                                <li className="list-inline-item me-0 small"><i className="fas fa-star text-warning"></i></li>
-                                                <li className="list-inline-item me-0 small"><i className="fas fa-star text-warning"></i></li>
-                                                <li className="list-inline-item me-0 small"><i className="fas fa-star text-warning"></i></li>
-                                                <li className="list-inline-item me-0 small"><i className="fas fa-star text-warning"></i></li>
-                                                <li className="list-inline-item me-0 small"><i className="far fa-star text-warning"></i></li>
-                                                <li className="list-inline-item ms-2 h6 fw-light mb-0">4.0/5.0</li>
+                                                {StarRating(item)}
                                             </ul>
                                         </div>
 
