@@ -4,6 +4,7 @@ import { getSingleMovieApi } from "../../service/categry";
 import { useLocation } from "react-router-dom";
 import StarRating from "../index/StarRating";
 import moment from "moment";
+import { Tokendata } from "../../utils/user";
 
 const MoviesDetailPage = (props) => {
     const location = useLocation();
@@ -37,6 +38,30 @@ const MoviesDetailPage = (props) => {
         };
         fetchUsers();
     }, []);
+
+    const checkUserAuth = async (event, moviesId) => {
+        try {
+            event.preventDefault();
+            let tokan = Tokendata();
+            console.log(moviesId, '---moviesId', tokan)
+            if (!tokan) {
+                alert('Please Login First')
+                window.location.href = '/login';  // Redirect to the login page
+                return;
+            }
+
+        } catch (err) {
+            if (!err.response?.data?.success) {
+                console.log(err?.response?.data?.message, "-----");
+            }
+            let errMs = err?.response?.data?.message
+                ? err.response.data.message
+                : err.message;
+            setError(errMs);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
         <>
@@ -148,7 +173,7 @@ const MoviesDetailPage = (props) => {
 
                                 <div className="col-md-4">
                                     <div className="overflow-hidden">
-                                        <button className="btn btn-primary mt-3">Book Your Slot</button>
+                                        <button className="btn btn-primary mt-3" onClick={(e) => checkUserAuth(e, movieDetails._id)}>Book Your Slot</button>
                                     </div>
                                 </div>
 

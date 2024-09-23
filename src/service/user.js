@@ -1,9 +1,13 @@
 import axios from "axios";
-const { url } = require('../config/index');
+
+import defaultJson from '../config/default.json';
+
 
 export const handleUserLoginApi = async (body) => {
     try {
-        const response = await axios.post(`${url}/user/login`, body);
+        const response = await axios.post(`${defaultJson.BASE_URL}/user/login`, body);
+        console.log(response, '-');
+
         localStorage.setItem("token", response?.data?.data?.token);
         return response?.data
     } catch (error) {
@@ -13,7 +17,7 @@ export const handleUserLoginApi = async (body) => {
 }
 export const getUserDetailsApi = async (userId) => {
     try {
-        const response = await axios.get(`${url}/user/getUserDetails/${userId}`, {
+        const response = await axios.get(`${defaultJson.BASE_URL}/user/getUserDetails/${userId}`, {
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}`, },
         });
         return response?.data

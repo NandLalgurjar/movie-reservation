@@ -305,8 +305,8 @@ const MainIndex = () => {
                                     <li className="dropdown-submenu dropend">
                                         <a className="dropdown-item dropdown-toggle" href="#">Authentication</a>
                                         <ul className="dropdown-menu dropdown-menu-start" data-bs-popper="none">
-                                            <li> <a className="dropdown-item" href="sign-in.html">Sign In</a></li>
-                                            <li> <a className="dropdown-item" href="sign-up.html">Sign Up</a></li>
+                                            <li> <a className="dropdown-item" href="/login">Sign In</a></li>
+                                            <li> <a className="dropdown-item" href="/sign-up">Sign Up</a></li>
                                             <li> <a className="dropdown-item" href="forgot-password.html">Forgot Password</a></li>
                                         </ul>
                                     </li>

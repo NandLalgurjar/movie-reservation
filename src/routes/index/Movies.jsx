@@ -125,7 +125,6 @@ const Header = () => {
                         <div className="row g-4">
 
                             {movieList?.data?.length > 0 ? movieList?.data?.map((item, index) => {
-                                console.log(item.rating / 2, '------------????')
                                 let url = `/movisDetails?id=${item._id}`
                                 return <div className="col-sm-6 col-lg-4 col-xl-3">
                                     <div className="card shadow h-100">
