@@ -21,7 +21,7 @@ export const getGenereApi = async () => {
 export const getMoviesApi = async (query) => {
     try {
         console.log(query, '--query getMoviesApi')
-        let url = `http://192.168.0.29:8000/movie/getMovies`;
+        let url = `${defaultJson.BASE_URL}/movie/getMovies`;
         if (query?._id) {
             url += `?_id=${query._id}`;
         };
@@ -43,7 +43,7 @@ export const getMoviesApi = async (query) => {
 
 export const getSingleMovieApi = async (query) => {
     try {
-        let url = `http://192.168.0.29:8000/movie/getSingleMovie`;
+        let url = `${defaultJson.BASE_URL}/movie/getSingleMovie`;
         if (query?._id) {
             url += `?movieId=${query._id}`;
         };
